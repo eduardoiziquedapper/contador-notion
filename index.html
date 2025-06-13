@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contador desde 10/09/2023</title>
+    <!-- Google Fonts para uma tipografia agradável -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+    <style>
+      /* Estilo básico: ajuste como preferir */
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        font-family: 'Inter', sans-serif;
+        background: #fafafa;
+      }
+      #counter {
+        font-size: 2.5rem;
+        font-weight: 600;
+        color: #333;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="counter">Carregando…</div>
+
+    <script>
+      // Data de início (10 de setembro de 2023, 00:00 no fuso de São Paulo)
+      // Ajuste a hora se necessário, mas esta versão já assume GMT-3
+      const startDate = new Date('2023-09-10T00:00:00-03:00');
+
+      function updateCounter() {
+        const now = new Date();
+        let diff = now - startDate; // diferença em milissegundos
+
+        // Converte para segundos
+        let totalSeconds = Math.floor(diff / 1000);
+
+        const days = Math.floor(totalSeconds / (3600 * 24));
+        totalSeconds %= 3600 * 24;
+        const hours = Math.floor(totalSeconds / 3600);
+        totalSeconds %= 3600;
+        const minutes = Math.floor(totalSeconds / 60);
+        const seconds = totalSeconds % 60;
+
+        // Formata com zero à esquerda se < 10
+        const pad = (n) => String(n).padStart(2, '0');
+
+        document.getElementById('counter').textContent =
+          `${days} dias, ${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
+      }
+
+      // Atualiza imediatamente e depois a cada segundo
+      updateCounter();
+      setInterval(updateCounter, 1000);
+    </script>
+  </body>
+</html>
